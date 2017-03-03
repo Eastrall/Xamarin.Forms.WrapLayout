@@ -1,5 +1,7 @@
 # Xamarin.Forms.WrapLayout
 
+[![NuGet](https://img.shields.io/nuget/v/Xamarin.Forms.WrapLayout.svg)](https://www.nuget.org/packages/Xamarin.Forms.WrapLayout)
+
 Provides a `WrapLayout` for Xamarin.Forms applications.
 
 ## How to use
