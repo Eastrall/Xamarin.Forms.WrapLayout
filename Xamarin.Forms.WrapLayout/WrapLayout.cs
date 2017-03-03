@@ -20,8 +20,14 @@ namespace Xamarin.Forms
         /// <summary>
         /// Backing Storage for the Orientation property
         /// </summary>
-        public static readonly BindableProperty OrientationProperty =
-            BindableProperty.Create<WrapLayout, StackOrientation>(w => w.Orientation, StackOrientation.Vertical,
+        public static readonly BindableProperty OrientationProperty = 
+            BindableProperty.Create(
+                nameof(Orientation), 
+                typeof(StackOrientation), 
+                typeof(WrapLayout), 
+                StackOrientation.Vertical, 
+                BindingMode.TwoWay, 
+                null,
                 propertyChanged: (bindable, oldvalue, newvalue) => ((WrapLayout)bindable).OnSizeChanged());
 
         /// <summary>
@@ -29,15 +35,19 @@ namespace Xamarin.Forms
         /// </summary>
         public StackOrientation Orientation
         {
-            get { return (StackOrientation)GetValue(OrientationProperty); }
-            set { SetValue(OrientationProperty, value); }
+            get { return (StackOrientation)this.GetValue(OrientationProperty); }
+            set { this.SetValue(OrientationProperty, value); }
         }
 
         /// <summary>
         /// Backing Storage for the Spacing property
         /// </summary>
         public static readonly BindableProperty SpacingProperty =
-            BindableProperty.Create<WrapLayout, double>(w => w.Spacing, 6,
+            BindableProperty.Create(
+                nameof(Spacing),
+                typeof(double),
+                typeof(WrapLayout),
+                (double)6,
                 propertyChanged: (bindable, oldvalue, newvalue) => ((WrapLayout)bindable).OnSizeChanged());
 
         /// <summary>
@@ -46,8 +56,8 @@ namespace Xamarin.Forms
         /// <value>The spacing.</value>
         public double Spacing
         {
-            get { return (double)GetValue(SpacingProperty); }
-            set { SetValue(SpacingProperty, value); }
+            get { return (double)this.GetValue(SpacingProperty); }
+            set { this.SetValue(SpacingProperty, value); }
         }
 
         /// <summary>
@@ -64,7 +74,7 @@ namespace Xamarin.Forms
         /// </summary>
         /// <param name="widthConstraint">The available width for the element to use.</param>
         /// <param name="heightConstraint">The available height for the element to use.</param>
-        protected override SizeRequest OnSizeRequest(double widthConstraint, double heightConstraint)
+        protected override SizeRequest OnMeasure(double widthConstraint, double heightConstraint)
         {
             if (WidthRequest > 0)
                 widthConstraint = Math.Min(widthConstraint, WidthRequest);
@@ -77,7 +87,6 @@ namespace Xamarin.Forms
             return Orientation == StackOrientation.Vertical
                 ? DoVerticalMeasure(internalWidth, internalHeight)
                     : DoHorizontalMeasure(internalWidth, internalHeight);
-
         }
 
         /// <summary>
@@ -98,7 +107,7 @@ namespace Xamarin.Forms
 
             foreach (var item in Children)
             {
-                var size = item.GetSizeRequest(widthConstraint, heightConstraint);
+                var size = item.Measure(widthConstraint, heightConstraint);
                 width = Math.Max(width, size.Request.Width);
 
                 var newHeight = height + size.Request.Height + Spacing;
@@ -142,7 +151,7 @@ namespace Xamarin.Forms
 
             foreach (var item in Children)
             {
-                var size = item.GetSizeRequest(widthConstraint, heightConstraint);
+                var size = item.Measure(widthConstraint, heightConstraint);
                 height = Math.Max(height, size.Request.Height);
 
                 var newWidth = width + size.Request.Width + Spacing;
@@ -184,7 +193,7 @@ namespace Xamarin.Forms
 
                 foreach (var child in Children.Where(c => c.IsVisible))
                 {
-                    var request = child.GetSizeRequest(width, height);
+                    var request = child.Measure(width, height);
 
                     double childWidth = request.Request.Width;
                     double childHeight = request.Request.Height;
@@ -209,7 +218,7 @@ namespace Xamarin.Forms
 
                 foreach (var child in Children.Where(c => c.IsVisible))
                 {
-                    var request = child.GetSizeRequest(width, height);
+                    var request = child.Measure(width, height);
 
                     double childWidth = request.Request.Width;
                     double childHeight = request.Request.Height;
