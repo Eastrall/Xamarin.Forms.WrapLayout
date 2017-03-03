@@ -2,6 +2,25 @@
 
 Provides a `WrapLayout` for Xamarin.Forms applications.
 
+## How to use
+
+```xml
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             ...
+             xmlns:xf="clr-namespace:Xamarin.Forms;assembly=Xamarin.Forms.WrapLayout"
+             ...>
+
+    <!-- WrapLayout example -->
+    <xf:WrapLayout Orientation="Horizontal">
+        <Label Text="Welcome to Xamarin Forms!" BackgroundColor="Red" />
+        <Label Text="Welcome!" BackgroundColor="Yellow" />
+        <Label Text="Small label" BackgroundColor="Gray" />
+        <Label Text="This is a very loooooong label!" BackgroundColor="Blue" />
+    </xf:WrapLayout>
+</ContentPage>
+```
 
 ## Credits
 
