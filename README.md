@@ -4,6 +4,10 @@
 
 Provides a `WrapLayout` for Xamarin.Forms applications.
 
+## How to install
+
+`PM> Install-Package Xamarin.Forms.WrapLayout`
+
 ## How to use
 
 ```xml
